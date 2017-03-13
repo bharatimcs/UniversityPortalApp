@@ -61,6 +61,18 @@
     <Compile Include="Migrations\201703120436390_UpdateEntityPrimaryKeys.Designer.cs">
       <DependentUpon>201703120436390_UpdateEntityPrimaryKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703121924327_ChangePropertyofDepartment&amp;Student.cs" />
+    <Compile Include="Migrations\201703121924327_ChangePropertyofDepartment&amp;Student.Designer.cs">
+      <DependentUpon>201703121924327_ChangePropertyofDepartment&amp;Student.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703122120052_ChangePropertyOfAddress.cs" />
+    <Compile Include="Migrations\201703122120052_ChangePropertyOfAddress.Designer.cs">
+      <DependentUpon>201703122120052_ChangePropertyOfAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703130210523_ChangePropertyOfStudent.cs" />
+    <Compile Include="Migrations\201703130210523_ChangePropertyOfStudent.Designer.cs">
+      <DependentUpon>201703130210523_ChangePropertyOfStudent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniversityContext.cs" />
@@ -81,6 +93,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703120436390_UpdateEntityPrimaryKeys.resx">
       <DependentUpon>201703120436390_UpdateEntityPrimaryKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703121924327_ChangePropertyofDepartment&amp;Student.resx">
+      <DependentUpon>201703121924327_ChangePropertyofDepartment&amp;Student.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703122120052_ChangePropertyOfAddress.resx">
+      <DependentUpon>201703122120052_ChangePropertyOfAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703130210523_ChangePropertyOfStudent.resx">
+      <DependentUpon>201703130210523_ChangePropertyOfStudent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

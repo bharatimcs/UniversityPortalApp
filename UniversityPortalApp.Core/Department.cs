@@ -10,8 +10,11 @@ namespace UniversityPortalApp.Core
 {
     public class Department : Entity
     {
+        [Display(Name = "Department Name")]
+        [Required]
         public string DepartmentName { get; set; }
-        public int HeadOfDepartmentId { get; set; }
+        [Display(Name = "Head of the Department")]
+        public int? HeadOfDepartmentId { get; set; }
 
         [ForeignKey("HeadOfDepartmentId")]
         public virtual Instructor Instructor { get; set; }

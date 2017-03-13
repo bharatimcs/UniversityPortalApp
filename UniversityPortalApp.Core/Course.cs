@@ -10,8 +10,13 @@ namespace UniversityPortalApp.Core
 {
     public class Course : Entity
     {
+        [Display(Name = "Course Name")]
+        [Required]
         public string CourseName { get; set; }
+        [Required]
         public int Credits { get; set; }
+        [Display(Name = "Department")]
+        [Required]
         public int DepartmentId { get; set; }
 
         [ForeignKey("DepartmentId")]

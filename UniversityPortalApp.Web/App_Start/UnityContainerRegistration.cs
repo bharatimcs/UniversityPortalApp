@@ -26,6 +26,11 @@ namespace UniversityPortalApp.Web
             container.RegisterType<IRepository<Enrollment>, Repository<Enrollment>>();
 
             container.RegisterType<StudentController>();
+            container.RegisterType<InstructorController>();
+            container.RegisterType<CourseController>();
+            container.RegisterType<DepartmentController>();
+            container.RegisterType<EnrollmentController>();
+            container.RegisterType<AddressController>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             return container;

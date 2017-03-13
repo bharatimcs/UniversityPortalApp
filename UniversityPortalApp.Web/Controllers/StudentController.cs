@@ -29,8 +29,9 @@ namespace UniversityPortalApp.Web.Controllers
 
         public ActionResult Create()
         {
+            var model = new Student();
             ViewBag.Departments = this.DepartmentRepository.GetAll.Select(x => new SelectListItem { Text = x.DepartmentName, Value = x.Id.ToString() }).ToList();
-            return View("Create");
+            return View("Create", model);
         }
 
         [HttpPost]
@@ -61,7 +62,7 @@ namespace UniversityPortalApp.Web.Controllers
             return View("Edit", model);
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult Edit(Student student)
         {
             if (!ModelState.IsValid)
@@ -76,7 +77,6 @@ namespace UniversityPortalApp.Web.Controllers
             }
         }
 
-        [HttpDelete]
         public ActionResult Delete(int id)
         {
             this.StudentRepository.Delete(id);

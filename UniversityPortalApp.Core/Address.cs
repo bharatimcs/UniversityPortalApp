@@ -10,16 +10,22 @@ namespace UniversityPortalApp.Core
 {
     public class Address : Entity
     {
+        [Required]
         public string Street { get; set; }
-
+        [Required]
         public string Unit { get; set; }
+        [Required]
         public string City { get; set; }
-        
+        [Required]
         public string State { get; set; }
-        public int Zipcode { get; set; }
-
+        [Display(Name = "Zip code")]
+        [Required]
+        public string Zipcode { get; set; }
+        [Required]
         public string Country { get; set; }
 
+        [Display(Name = "Student")]
+        [Required]
         public int StudentId { get; set; }
 
         [ForeignKey("StudentId")]

@@ -4,10 +4,9 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail</h2>
+<h2>@Model.FirstName @Model.LastName</h2>
 
 <div>
-    <h4>Student</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -31,13 +30,87 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DepartmentId)
+            @Html.DisplayFor(model => model.Department.DepartmentName)
         </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete","Delete", new { id = Model.Id }) |
+    <a href="@Url.Action("Create", "Address",new { studentId = Model.Id })">Add Address</a> |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<hr />
+
+<div>
+    <h4>Addresses</h4>
+    <br />
+    @if (Model.Addresses.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    Street
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    City
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Zipcode
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    StudentId
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Addresses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zipcode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentId)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Address",new { id = item.Id })">Edit</a> |
+                        <a href="@Url.Action("Detail", "Address",new { id = item.Id })">Detail</a> |
+                        <a href="@Url.Action("Delete", "Address",new { id = item.Id })">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <h4>No Addresses registered</h4>
+    }
+</div>

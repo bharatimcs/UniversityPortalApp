@@ -85,7 +85,7 @@ namespace UniversityPortalApp.Data
 
             //Students has enrolled many courses
             modelBuilder.Entity<Enrollment>()
-                .HasRequired<Student>(e => e.Student)
+                .HasOptional<Student>(e => e.Student)
                 .WithMany(s => s.Enrollments)
                 .HasForeignKey(x=>x.StudentId)
                 .WillCascadeOnDelete(false);
