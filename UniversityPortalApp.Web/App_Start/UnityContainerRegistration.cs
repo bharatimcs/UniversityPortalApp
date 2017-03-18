@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UniversityPortalApp.Core;
+using UniversityPortalApp.Data;
 using UniversityPortalApp.Infrastructure;
 using UniversityPortalApp.Web.Controllers;
 
@@ -17,20 +18,17 @@ namespace UniversityPortalApp.Web
             //Initialise container
             var container = new UnityContainer();
 
-            //Registry the dependencies
-            container.RegisterType<IRepository<Student>, Repository<Student>>();
-            container.RegisterType<IRepository<Instructor>, Repository<Instructor>>();
-            container.RegisterType<IRepository<Course>, Repository<Course>>();
-            container.RegisterType<IRepository<Department>, Repository<Department>>();
-            container.RegisterType<IRepository<Address>, Repository<Address>>();
-            container.RegisterType<IRepository<Enrollment>, Repository<Enrollment>>();
+            //Registring the Context
+            container.RegisterType<UniversityContext>();
 
-            container.RegisterType<StudentController>();
-            container.RegisterType<InstructorController>();
-            container.RegisterType<CourseController>();
-            container.RegisterType<DepartmentController>();
-            container.RegisterType<EnrollmentController>();
-            container.RegisterType<AddressController>();
+            //Registering Generic repository
+            container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+
+            //Registering Controllers of typeof(BaseController) dynamically
+            typeof(BaseController).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(BaseController))).ToList().ForEach(x =>
+            {
+                container.RegisterType(x);
+            });
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
             return container;

@@ -73,6 +73,14 @@
     <Compile Include="Migrations\201703130210523_ChangePropertyOfStudent.Designer.cs">
       <DependentUpon>201703130210523_ChangePropertyOfStudent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703132114138_UpdateRequiredProperties.cs" />
+    <Compile Include="Migrations\201703132114138_UpdateRequiredProperties.Designer.cs">
+      <DependentUpon>201703132114138_UpdateRequiredProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703142359474_UpdateRelationsAmongCoreEntities.cs" />
+    <Compile Include="Migrations\201703142359474_UpdateRelationsAmongCoreEntities.Designer.cs">
+      <DependentUpon>201703142359474_UpdateRelationsAmongCoreEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniversityContext.cs" />
@@ -102,6 +110,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703130210523_ChangePropertyOfStudent.resx">
       <DependentUpon>201703130210523_ChangePropertyOfStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703132114138_UpdateRequiredProperties.resx">
+      <DependentUpon>201703132114138_UpdateRequiredProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703142359474_UpdateRelationsAmongCoreEntities.resx">
+      <DependentUpon>201703142359474_UpdateRelationsAmongCoreEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

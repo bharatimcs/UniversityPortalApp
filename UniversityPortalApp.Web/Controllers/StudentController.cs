@@ -8,7 +8,8 @@ using UniversityPortalApp.Infrastructure;
 
 namespace UniversityPortalApp.Web.Controllers
 {
-    public class StudentController : Controller
+    [Authorize]
+    public class StudentController : BaseController
     {
         private IRepository<Student> StudentRepository;
         private IRepository<Department> DepartmentRepository;

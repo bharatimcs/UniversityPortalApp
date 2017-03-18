@@ -10,6 +10,8 @@ namespace UniversityPortalApp.Core
 {
     public class Department : Entity
     {
+        [Key]
+        public override int Id { get; set; }
         [Display(Name = "Department Name")]
         [Required]
         public string DepartmentName { get; set; }
@@ -18,9 +20,9 @@ namespace UniversityPortalApp.Core
 
         [ForeignKey("HeadOfDepartmentId")]
         public virtual Instructor Instructor { get; set; }
-        public ICollection<Course> Courses { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
 
-        public ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Instructor> Instructors { get; set; }
     }
 }

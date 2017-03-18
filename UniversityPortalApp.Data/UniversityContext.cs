@@ -17,7 +17,7 @@ namespace UniversityPortalApp.Data
         public UniversityContext()
             : base("name=UniversityConnection")
         {
-            
+
         }
 
 
@@ -32,7 +32,7 @@ namespace UniversityPortalApp.Data
         public virtual DbSet<Instructor> Instructors { get; set; }
 
         public virtual DbSet<Enrollment> Enrollments { get; set; }
-
+        public virtual DbSet<StudentEnrollment> StudentEnrollments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -66,38 +66,56 @@ namespace UniversityPortalApp.Data
             modelBuilder.Entity<Address>()
                 .HasRequired<Student>(s => s.Student)
                 .WithMany(ad => ad.Addresses)
-                .HasForeignKey(x=>x.StudentId)
+                .HasForeignKey(x => x.StudentId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Student>()
+                .HasOptional(x => x.Department)
+                .WithMany(x => x.Students)
+                .HasForeignKey(x => x.DepartmentId)
                 .WillCascadeOnDelete(false);
 
             //Department has many Instructors
             modelBuilder.Entity<Instructor>()
-                .HasRequired<Department>(i => i.Department)
+                .HasOptional<Department>(i => i.Department)
                 .WithMany(d => d.Instructors)
-                .HasForeignKey(x=>x.DepartmentId)
+                .HasForeignKey(x => x.DepartmentId)
                 .WillCascadeOnDelete(false);
 
             //Course has many students
             modelBuilder.Entity<Enrollment>()
                 .HasRequired<Course>(e => e.Course)
                 .WithMany(c => c.Enrollments)
-                .HasForeignKey(x=>x.CourseId)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(x => x.CourseId)
+                .WillCascadeOnDelete(true);
 
             //Students has enrolled many courses
-            modelBuilder.Entity<Enrollment>()
-                .HasOptional<Student>(e => e.Student)
-                .WithMany(s => s.Enrollments)
-                .HasForeignKey(x=>x.StudentId)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Enrollment>()
+            //    .HasOptional<Student>(e => e.Student)
+            //    .WithMany(s => s.Enrollments)
+            //    .HasForeignKey(x => x.StudentId)
+            //    .WillCascadeOnDelete(false);
 
             //Instructor can teach many courses
             modelBuilder.Entity<Enrollment>()
                 .HasRequired<Instructor>(e => e.Instructor)
                 .WithMany(i => i.Enrollments)
-                .HasForeignKey(x=>x.InstructorId)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(x => x.InstructorId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<StudentEnrollment>()
+                .HasRequired<Enrollment>(r => r.Enrollment)
+                .WithMany(e => e.StudentEnrollments)
+                .HasForeignKey(f => f.EnrollmentId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<StudentEnrollment>()
+                .HasRequired<Student>(r => r.Student)
+                .WithMany(e => e.StudentEnrollments)
+                .HasForeignKey(f => f.StudentId)
+                .WillCascadeOnDelete(true);
 
         }
     }
-    
+
 }

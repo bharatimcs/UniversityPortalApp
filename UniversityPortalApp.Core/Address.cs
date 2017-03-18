@@ -10,6 +10,8 @@ namespace UniversityPortalApp.Core
 {
     public class Address : Entity
     {
+        [Key]
+        public override int Id { get; set; }
         [Required]
         public string Street { get; set; }
         [Required]

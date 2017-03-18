@@ -5,6 +5,7 @@ using UniversityPortalApp.Infrastructure;
 using UniversityPortalApp.Core;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using UniversityPortalApp.Data;
 
 namespace UniversityPortalApp.Test
 {
@@ -12,9 +13,11 @@ namespace UniversityPortalApp.Test
     public class StudentControllerTest
     {
         private StudentController StudentController;
+        private UniversityContext context;
         public StudentControllerTest()
         {
-            this.StudentController = new StudentController(new Repository<Student>(), new Repository<Department>());
+            this.context = new UniversityContext();
+            this.StudentController = new StudentController(new Repository<Student>(context), new Repository<Department>(context));
         }
         [TestMethod]
         public void IndexViewNameTest()

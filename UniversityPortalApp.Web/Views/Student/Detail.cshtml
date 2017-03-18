@@ -37,6 +37,7 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a href="@Url.Action("Enroll", "StudentEnrollment",new { studentId = Model.Id })">Enroll for Course</a> |
     <a href="@Url.Action("Create", "Address",new { studentId = Model.Id })">Add Address</a> |
     @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
@@ -113,4 +114,48 @@
     {
         <h4>No Addresses registered</h4>
     }
+</div>
+<br />
+<div>
+    <h4>Courses Enrolled</h4>
+    <br />
+    @if (Model.StudentEnrollments.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    Course
+                </th>
+                <th>
+                    Instructor
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.StudentEnrollments)
+            {
+
+                <tr>
+                    @{
+                        var courseName = item.Enrollment != null ? (item.Enrollment.Course != null ? item.Enrollment.Course.CourseName : "") : "";
+                        var instructorName = item.Enrollment != null ? (item.Enrollment.Instructor != null ? item.Enrollment.Instructor.FirstName + " " + item.Enrollment.Instructor.LastName : "") : "";
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => courseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => instructorName)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeEnroll", "StudentEnrollment", new { id = item.Id, studentId = Model.Id })" class="btn btn-danger">DeEnroll</a>
+                    </td>
+                </tr>
+                        }
+
+        </table>
+                        }
+                        else
+                        {
+                            <h4>You are not enrolled in any course</h4>
+                        }
 </div>

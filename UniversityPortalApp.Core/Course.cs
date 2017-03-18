@@ -10,6 +10,8 @@ namespace UniversityPortalApp.Core
 {
     public class Course : Entity
     {
+        [Key]
+        public override int Id { get; set; }
         [Display(Name = "Course Name")]
         [Required]
         public string CourseName { get; set; }

@@ -9,6 +9,9 @@ namespace UniversityPortalApp.Core
 {
     public class Student : Entity
     {
+        [Key]
+        public override int Id { get; set; }
+
         [Display(Name ="First Name")]
         [Required]
         public string FirstName { get; set; }
@@ -16,15 +19,14 @@ namespace UniversityPortalApp.Core
         [Required]
         public string LastName { get; set; }
         [Display(Name = "Department")]
-        [Required]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }
 
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public virtual ICollection<StudentEnrollment> StudentEnrollments { get; set; }
 
 
     }

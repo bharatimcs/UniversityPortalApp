@@ -12,9 +12,10 @@ namespace UniversityPortalApp.Infrastructure
     public class Repository<T> : IRepository<T> where T : Entity
     {
         private UniversityContext context;
-        public Repository()
+        public Repository() { }
+        public Repository(UniversityContext _context)
         {
-            this.context = new UniversityContext();
+            this.context = _context;
         }
         public IEnumerable<T> GetAll
         {
@@ -28,6 +29,15 @@ namespace UniversityPortalApp.Infrastructure
         {
             this.context.Entry<T>(this.GetById(id)).State = System.Data.Entity.EntityState.Deleted;
             this.context.SaveChanges();
+        }
+
+        public void DeleteAll(IEnumerable<T> entities)
+        {
+            foreach(var entity in entities)
+            {
+                this.context.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+                this.context.SaveChanges();
+            }
         }
 
         public T GetById(int id)

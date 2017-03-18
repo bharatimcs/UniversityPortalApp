@@ -10,8 +10,10 @@ namespace UniversityPortalApp.Core
 {
     public class Enrollment : Entity
     {
-        [Display(Name = "Student")]
-        public int? StudentId { get; set; }
+        [Key]
+        public override int Id { get; set; }
+        //[Display(Name = "Student")]
+        //public int? StudentId { get; set; }
         [Display(Name = "Course")]
         [Required]
         public int CourseId { get; set; }
@@ -22,10 +24,12 @@ namespace UniversityPortalApp.Core
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
 
-        [ForeignKey("StudentId")]
-        public virtual Student Student { get; set; }
+        //[ForeignKey("StudentId")]
+        //public virtual Student Student { get; set; }
 
         [ForeignKey("InstructorId")]
         public virtual Instructor Instructor { get; set; }
+
+        public virtual ICollection<StudentEnrollment> StudentEnrollments { get; set; }
     }
 }

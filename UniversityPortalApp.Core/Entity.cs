@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace UniversityPortalApp.Core
 {
-    public class Entity
+    public abstract class Entity
     {
-        [Key]
-        public int Id { get; set; }
+        public abstract int Id { get; set; }
     }
 }
