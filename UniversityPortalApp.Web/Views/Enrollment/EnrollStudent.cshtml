@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UniversityPortalApp.Core.Enrollment>
+
+@{
+    ViewBag.Title = "EnrollStudent";
+}
+
+<h2>EnrollStudent</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstructorId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    var courseName = item.Course.CourseName;
+    var instructorName = item.Instructor.FirstName + " " + item.Instructor.LastName;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => courseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => instructorName)
+        </td>
+        <td>
+            <input type="button" value="Add to Enrollment list" />
+        </td>
+    </tr>
+}
+</table>

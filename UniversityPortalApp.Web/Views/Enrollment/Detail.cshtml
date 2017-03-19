@@ -1,0 +1,39 @@
+﻿@model UniversityPortalApp.Core.Enrollment
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>Enrollment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @{
+            var instructorName = Model.Instructor != null ? Model.Instructor.FirstName + " " + Model.Instructor.LastName : "";
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </dt>
+        @{ 
+            var courseName = Model.Course != null ? Model.Course.CourseName : "";
+        }
+        <dd>
+            @Html.DisplayFor(modelItem => courseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstructorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(modelItem => instructorName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

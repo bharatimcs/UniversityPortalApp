@@ -13,6 +13,7 @@ using UniversityPortalApp.Web.Models;
 namespace UniversityPortalApp.Web.Controllers
 {
     [Authorize]
+    [HandleExceptionsAttribute]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

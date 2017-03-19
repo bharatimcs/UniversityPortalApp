@@ -9,6 +9,7 @@ using UniversityPortalApp.Infrastructure;
 namespace UniversityPortalApp.Web.Controllers
 {
     [Authorize]
+    [HandleExceptionsAttribute]
     public class StudentController : BaseController
     {
         private IRepository<Student> StudentRepository;

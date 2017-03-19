@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace UniversityPortalApp.Web.Controllers
 {
+    [HandleExceptionsAttribute]
     public class HomeController : Controller
     {
         public ActionResult Index()

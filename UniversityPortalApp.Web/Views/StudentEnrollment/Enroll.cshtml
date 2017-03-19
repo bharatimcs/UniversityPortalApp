@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Enroll";
+}
+
+<h2>Enroll for courses</h2>
+<input type="hidden" value="@ViewBag.StudentEnrollments" id="StudentEnrollments" />
+<input type="hidden" value="@ViewBag.StudentEnrolledCourses" id="StudentEnrolledCourses" />
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="text" id="EnrollmentIds" class="form-control" name="EnrollmentIds" placeholder="Clieck on enrollment buttons to enroll" readonly="readonly" />
+                <br />
+                <input type="submit" value="Enroll for the courses" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+<hr />
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Enrollment Id
+        </th>
+        <th>
+            Course
+        </th>
+        <th>
+            Instructor
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in (IList<UniversityPortalApp.Core.Enrollment>)ViewBag.AvailableEnrollments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseName)
+            </td>
+            <td>
+                @{
+                    var instructorName = item.Instructor != null ? item.Instructor.FirstName + " " + item.Instructor.LastName : "";
+                }
+                @Html.DisplayFor(modelItem => instructorName)
+            </td>
+            <td>
+                <input type="button" id="enroll_@item.Id" course="@item.Course.CourseName" onclick="enrollCourse(@item.Id,'@item.Course.CourseName')" class="btn btn-success" value="Enroll" />
+                <input type="button" id="deenroll_@item.Id" onclick="deEnrollCourse(@item.Id,'@item.Course.CourseName')" class="btn btn-danger" value="De-Enroll" style="display:none" />
+            </td>
+        </tr>
+                    }
+
+</table>
+
+<div>
+    <a href="@Url.Action("Detail","Student",new { id = ViewBag.StudentId})">Back to Student</a>
+</div>
+@section scripts{
+    <script>
+        var enrolledCourses = [];
+        function enrollCourse(enrollmentId, courseName) {
+            enrolledCourses.push(enrollmentId);
+            $("#enroll_" + enrollmentId).css({ "display": "none" });
+            $("#deenroll_" + enrollmentId).css({ "display": "" });
+            $("#EnrollmentIds").val(enrolledCourses.join(","));
+            $("input[course='" + courseName + "']")
+                .each(function (index, element) {
+                    if (!($(element)[0]["id"] == "enroll_" + enrollmentId)) {
+                        $(element)[0].disabled = true;
+                    }
+                });
+        }
+        function deEnrollCourse(enrollmentId, courseName) {
+            var index = enrolledCourses.indexOf(enrollmentId);
+            if (index != -1)
+                enrolledCourses.splice(index, 1);
+            //delete enrolledCourses[index];
+            //enrolledCourses.pop(enrollmentId);
+            $("#enroll_" + enrollmentId).css({ "display": "" });
+            $("#deenroll_" + enrollmentId).css({ "display": "none" });
+            $("#EnrollmentIds").val(enrolledCourses.join(","));
+            $("input[course='" + courseName + "']")
+                .each(function (index, element) {
+                    $(element)[0].disabled = false;
+                });
+        }
+
+        function updateEnrollments() {
+            if ($("#StudentEnrollments").val() != "") {
+                var _enrollIds = $("#StudentEnrollments").val().split(",");
+                for (var i in _enrollIds) {
+                    enrolledCourses.push(parseInt(_enrollIds[i]));
+                }
+                $("#EnrollmentIds").val(enrolledCourses.join(","));
+                for (var enrollId in enrolledCourses) {
+                    $("#enroll_" + enrolledCourses[enrollId]).css({ "display": "none" });
+                    $("#deenroll_" + enrolledCourses[enrollId]).css({ "display": "" });
+                }
+
+                var _enrolledCourses = $("#StudentEnrolledCourses").val().split(",");
+                _enrolledCourses.forEach(
+                    function (value, index) {
+                        $("input[course='" + value + "']")
+                            .each(function (index, element) {
+                                $(element)[0].disabled = true;
+                            });
+                    });
+            }
+        }
+        updateEnrollments();
+    </script>
+}

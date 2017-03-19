@@ -11,6 +11,7 @@ using UniversityPortalApp.Web.Models;
 namespace UniversityPortalApp.Web.Controllers
 {
     [Authorize]
+    [HandleExceptionsAttribute]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
