@@ -6,6 +6,7 @@ using System.Net.Http.Formatting;
 using System.Web.Http;
 using UniversityPortalApp.Data;
 using UniversityPortalApp.Infrastructure;
+using UniversityPortalApp.Web.Areas.Api.Controllers;
 using UniversityPortalApp.Web.Controllers;
 
 namespace UniversityPortalApp.Web
@@ -24,13 +25,19 @@ namespace UniversityPortalApp.Web
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "Api_Api_Default",
+                routeTemplate: "{controller}/api/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+                );
+
             #region formatters
             var jsonpFormatter = new JsonpFormatter(config.Formatters.JsonFormatter);
             config.Formatters.Insert(0, jsonpFormatter);
             config.Formatters.Add(new BsonFormatter());
             config.Formatters.XmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("fmt", "xml", "text/xml"));
 
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;    
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
             #endregion
 

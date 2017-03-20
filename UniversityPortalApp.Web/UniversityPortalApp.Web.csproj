@@ -243,9 +243,10 @@
     <Compile Include="App_Start\UnityContainerRegistration.cs" />
     <Compile Include="App_Start\UnityDependencyResolver.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
-    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Areas\Api\Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -253,7 +254,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\StudentApiController.cs" />
+    <Compile Include="Areas\Api\Controllers\StudentApiController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentEnrollmentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -283,6 +284,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Api\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -357,6 +359,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Api\Models\" />
+    <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using UniversityPortalApp.Core;
@@ -17,11 +18,11 @@ namespace UniversityPortalApp.Infrastructure
         {
             this.context = _context;
         }
-        public IEnumerable<T> GetAll
+        public IQueryable<T> GetAll
         {
             get
             {
-                return this.context.Set<T>().ToList();
+                return this.context.Set<T>();//.ToList();
             }
         }
 
@@ -43,6 +44,11 @@ namespace UniversityPortalApp.Infrastructure
         public T GetById(int id)
         {
             return this.context.Set<T>().Where(t => t.Id == id).FirstOrDefault();
+        }
+
+        public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        {
+            return this.context.Set<T>().Where(predicate);
         }
 
         public T InsertOrEdit(T entity)
