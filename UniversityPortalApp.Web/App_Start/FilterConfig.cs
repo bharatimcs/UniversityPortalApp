@@ -9,6 +9,7 @@ namespace UniversityPortalApp.Web
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new HandleExceptionsAttribute());
+            filters.Add(new CustomActionFilter());
         }
     }
 }

@@ -34,6 +34,9 @@ namespace UniversityPortalApp.Data
         public virtual DbSet<Enrollment> Enrollments { get; set; }
         public virtual DbSet<StudentEnrollment> StudentEnrollments { get; set; }
 
+        public virtual DbSet<ActionLog> ActionLog { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLog { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

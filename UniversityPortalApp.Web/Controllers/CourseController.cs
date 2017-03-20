@@ -9,7 +9,8 @@ using UniversityPortalApp.Infrastructure;
 namespace UniversityPortalApp.Web.Controllers
 {
     [Authorize]
-    [HandleExceptionsAttribute]
+    [CustomActionFilter]
+    [HandleExceptions]
     public class CourseController : BaseController
     {
         // GET: Course

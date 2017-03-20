@@ -21,9 +21,15 @@
         <dt>
             @Html.DisplayNameFor(model => model.HeadOfDepartmentId)
         </dt>
+        @{
 
+            
+                var instructorName = Model.Instructor != null ? Model.Instructor.FirstName + " " + Model.Instructor.LastName : "";
+            
+        }
         <dd>
-            @Html.DisplayFor(model => model.Instructor.FirstName + " " + model.Instructor.LastName)
+
+            @Html.DisplayFor(model => instructorName)
         </dd>
 
     </dl>

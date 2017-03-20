@@ -48,7 +48,7 @@
 <div>
     <h4>Addresses</h4>
     <br />
-    @if (Model.Addresses.Count > 0)
+    @if (Model.Addresses!=null && Model.Addresses.Count > 0)
     {
         <table class="table">
             <tr>
@@ -119,7 +119,7 @@
 <div>
     <h4>Courses Enrolled</h4>
     <br />
-    @if (Model.StudentEnrollments.Count > 0)
+    @if (Model.StudentEnrollments!=null && Model.StudentEnrollments.Count > 0)
     {
         <table class="table">
             <tr>

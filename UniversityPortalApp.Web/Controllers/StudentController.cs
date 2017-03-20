@@ -6,10 +6,12 @@ using System.Web.Mvc;
 using UniversityPortalApp.Core;
 using UniversityPortalApp.Infrastructure;
 
+
 namespace UniversityPortalApp.Web.Controllers
 {
     [Authorize]
-    [HandleExceptionsAttribute]
+    [CustomActionFilter]
+    [HandleExceptions]
     public class StudentController : BaseController
     {
         private IRepository<Student> StudentRepository;
