@@ -37,8 +37,8 @@ namespace UniversityPortalApp.Infrastructure
             foreach(var entity in entities)
             {
                 this.context.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-                this.context.SaveChanges();
             }
+            this.context.SaveChanges();
         }
 
         public T GetById(int id)

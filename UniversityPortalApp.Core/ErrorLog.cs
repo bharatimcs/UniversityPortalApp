@@ -12,8 +12,13 @@ namespace UniversityPortalApp.Core
         [Key]
         public override int Id { get; set; }
 
-        public string message { get; set; }
-        public string stacktrace { get; set; }
+        public string Message { get; set; }
+        public string StackTrace { get; set; }
+        public string Source { get; set; }
+        public string HelpLink { get; set; }
+        public string InnerException { get; set; }
+        //Source HelpLink InnerException
+        public DateTime CreatedDate { get; set; }
         
     }
 }

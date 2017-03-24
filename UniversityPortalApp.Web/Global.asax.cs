@@ -15,12 +15,11 @@ namespace UniversityPortalApp.Web
         {
             log4net.Config.XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
+            UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            UnityContainerRegistration.InitialiseContainer();
         }
     }
 }

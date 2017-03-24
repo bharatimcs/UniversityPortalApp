@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201703200109229_AddExceptionHandler.Designer.cs">
       <DependentUpon>201703200109229_AddExceptionHandler.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703202158211_UpdateErrorLogEntity.cs" />
+    <Compile Include="Migrations\201703202158211_UpdateErrorLogEntity.Designer.cs">
+      <DependentUpon>201703202158211_UpdateErrorLogEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniversityContext.cs" />
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703200109229_AddExceptionHandler.resx">
       <DependentUpon>201703200109229_AddExceptionHandler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703202158211_UpdateErrorLogEntity.resx">
+      <DependentUpon>201703202158211_UpdateErrorLogEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

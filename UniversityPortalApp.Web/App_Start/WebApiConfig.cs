@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Unity.WebApi;
 using UniversityPortalApp.Data;
 using UniversityPortalApp.Infrastructure;
 using UniversityPortalApp.Web.Areas.Api.Controllers;
@@ -46,13 +47,14 @@ namespace UniversityPortalApp.Web
             container.RegisterType<UniversityContext>();
 
             //Registering Generic repository
-            container.RegisterType(typeof(IRepository<>), typeof(Repository<>), new HierarchicalLifetimeManager());
+            container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+
             typeof(BaseApiController).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(BaseApiController))).ToList().ForEach(x =>
             {
                 container.RegisterType(x);
             });
 
-            config.DependencyResolver = new UnityApiDependencyResolver(container);
+            //config.DependencyResolver = new UnityDependencyResolver(container);
 
         }
     }

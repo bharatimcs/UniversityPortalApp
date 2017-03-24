@@ -82,8 +82,6 @@
             var index = enrolledCourses.indexOf(enrollmentId);
             if (index != -1)
                 enrolledCourses.splice(index, 1);
-            //delete enrolledCourses[index];
-            //enrolledCourses.pop(enrollmentId);
             $("#enroll_" + enrollmentId).css({ "display": "" });
             $("#deenroll_" + enrollmentId).css({ "display": "none" });
             $("#EnrollmentIds").val(enrolledCourses.join(","));

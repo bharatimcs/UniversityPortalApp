@@ -18,30 +18,32 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" , @onfocusout = "firstNameFocusOut()" } })
+                <label id="validate_firstName" class="text-danger"></label>
+                @*@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @onfocusout = "lastNameFocusOut()" } })
+                <label id="validate_lastName" class="text-danger"></label>
+                @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewBag.Departments,"Select a department", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                @Html.DropDownList("DepartmentId", (IEnumerable<SelectListItem>)ViewBag.Departments, "Select a department", new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" onclick="createStudent()" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -52,5 +54,83 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script>
+        function firstNameFocusOut() {
+            var firstNameElement = document.getElementById("FirstName");
+            if (firstNameElement.value == "") {
+                document.getElementById("validate_firstName").textContent = "please enter firstname";
+            }
+            else {
+                document.getElementById("validate_firstName").textContent = "";
+            }
+        }
+        function lastNameFocusOut() {
+            if (document.getElementById("LastName").value == "") {
+                document.getElementById("validate_lastName").textContent = "please enter lastname";
+            }
+            else {
+                document.getElementById("validate_lastName").textContent = "";
+            }
+        }
+        //$("#FirstName").focusout(function () {
+        //    if ($("#FirstName").val() == "") {
+        //        $("#validate_firstName").text("please enter firstname");
+        //    }
+        //    else {
+        //        $("#validate_firstName").text("");
+        //    }
+        //});
+        //$("#LastName").focusout(function () {
+        //    if ($("#LastName").val() == "") {
+        //        $("#validate_lastName").text("please enter lastname");
+        //    }
+        //    else {
+        //        $("#validate_lastName").text("");
+        //    }
+        //});
+        function createStudent() {
+            var firstName = document.getElementById("FirstName").value;
+            var lastName = document.getElementById("LastName").value;
+            var departmentId = document.getElementById("DepartmentId").value;
+            var departmentIdInt;
+            if (departmentId != "") {
+                departmentIdInt = parseInt(departmentId);
+            }
+            var student = {
+                FirstName: firstName,
+                LastName: lastName,
+                DepartmentId: departmentId
+            };
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.open("POST", "../Students/Api/Add", true);
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.onerror = function (jqXHR, textStatus, errorThrown) {
+
+                };
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status >= 200 && httpRequest.status < 400) {
+                        var studentResult = JSON.parse(JSON.parse(httpRequest.responseText));
+                        window.location.href = "/student/detail?id=" + studentResult.Id;
+                    } else {
+                    }
+                }
+            };
+            if (student)
+                httpRequest.send((typeof student === 'object') ? JSON.stringify(student) : student);
+            //$.ajax({
+            //    type: "POST",
+            //    url: "../Students/Api/Add",
+            //    data: (typeof student === 'object') ? JSON.stringify(student) : student,
+            //    async: true,
+            //    contentType: 'application/json'
+            //}).done(function (result) {
+            //    var studentResult = JSON.parse(result);
+            //    window.location.href = "/student/detail?id=" + studentResult.Id;
+            //}).error(function (jqXHR, textStatus, errorThrown) {
+
+            //});
+        }
+    </script>
 }

@@ -6,6 +6,9 @@ using UniversityPortalApp.Core;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using UniversityPortalApp.Data;
+using Moq;
+using Shouldly;
+using System.Linq;
 
 namespace UniversityPortalApp.Test
 {
@@ -13,11 +16,13 @@ namespace UniversityPortalApp.Test
     public class StudentControllerTest
     {
         private StudentController StudentController;
-        private UniversityContext context;
+        private Mock<IRepository<Student>> studentMockRepository;
+        private Mock<IRepository<Department>> departmentMockRepository;
         public StudentControllerTest()
         {
-            this.context = new UniversityContext();
-            this.StudentController = new StudentController(new Repository<Student>(context), new Repository<Department>(context));
+            studentMockRepository = new Mock<IRepository<Student>>();
+            departmentMockRepository = new Mock<IRepository<Department>>();
+            this.StudentController = new StudentController(studentMockRepository.Object, departmentMockRepository.Object);
         }
         [TestMethod]
         public void IndexViewNameTest()
@@ -37,8 +42,16 @@ namespace UniversityPortalApp.Test
         [TestMethod]
         public void IndexModelTest()
         {
+            var studentList = new List<Student> {
+                new Student { Id=1,FirstName="Test1", LastName="Test1" },
+                new Student { Id=2,FirstName="Test2", LastName="Test2"},
+                new Student { Id=3,FirstName="Test3", LastName="Test3"}
+            };
+
+            studentMockRepository.Setup(x => x.GetAll).Returns(studentList.AsQueryable());
             var result = (ViewResult)this.StudentController.Index();
-            Assert.IsInstanceOfType(result.Model, typeof(IEnumerable<Student>));
+
+            Assert.IsInstanceOfType(result.Model as IQueryable<Student>, typeof(IQueryable<Student>));
         }
 
         [TestMethod]
@@ -49,7 +62,7 @@ namespace UniversityPortalApp.Test
         }
 
         [TestMethod]
-        public void CreateHttpGetResultTest()
+        public void CreateHttpGetViewBagTest()
         {
             var result = (ViewResult)this.StudentController.Create();
             Assert.IsInstanceOfType(result.ViewBag.Departments, typeof(IEnumerable<SelectListItem>));
@@ -81,6 +94,19 @@ namespace UniversityPortalApp.Test
             this.StudentController.ModelState.AddModelError("Test", "TestingError");
             var result = this.StudentController.Create(student) as ViewResult;
             Assert.IsInstanceOfType(result.ViewBag.Departments, typeof(IEnumerable<SelectListItem>));
+        }
+
+        [TestMethod]
+        public void DetailsTest()
+        {
+
+            var student = new Student { Id = 1, FirstName = "Bharat", LastName = "Sontam" };
+
+            studentMockRepository.Setup(x => x.GetById(1)).Returns(student);
+
+            var result = (ViewResult)this.StudentController.Detail(1);
+
+            Assert.AreEqual((result.Model as Student).FirstName, "Bharat");
         }
     }
 }

@@ -15,10 +15,14 @@ namespace UniversityPortalApp.Web
         {
             using (UniversityContext db = new UniversityContext())
             {
-                ErrorLog er = new ErrorLog();
+                ErrorLog er = new ErrorLog()
                 {
-                    er.message = filterContext.Exception.Message;
-                    er.stacktrace = filterContext.Exception.StackTrace;
+                    Message = filterContext.Exception.Message,
+                    StackTrace = filterContext.Exception.StackTrace,
+                    HelpLink = filterContext.Exception.HelpLink,
+                    Source = filterContext.Exception.Source,
+                    InnerException = filterContext.Exception.InnerException != null ? filterContext.Exception.InnerException.Message : "",
+                    CreatedDate = DateTime.Now
                 };
                 //var exception = filterContext.Exception;
                 db.ErrorLog.Add(er);
