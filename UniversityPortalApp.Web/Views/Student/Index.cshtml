@@ -9,36 +9,97 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </th>
-        <th></th>
-    </tr>
+<div ng-app="StudentApp">
+    <div ng-controller="StudentController">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartmentId)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Detail", new { id=item.Id })
-        </td>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        <a href="#" ng-click="getStudent(@item.Id)">Detail</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div ng-app="">
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+
+                <dd>
+                    <label ng-bind="Student.FirstName | uppercase"></label>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+
+                <dd>
+                    <label ng-bind="Student.LastName | uppercase"></label>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartmentId)
+                </dt>
+
+                <dd>
+                    <label ng-bind="Student.Department.DepartmentName | uppercase"></label>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/angular.js"></script>
+
+    <script>
+        var app = angular.module("StudentApp", []);
+        app.service("StudentService", function ($http) {
+            this.getStudent = function (id, success) {
+                $http.get("../Students/Api/GetStudent/" + id)
+                    .then(function (data) {
+                        if (typeof success === 'function') {
+                            success(data);
+                        }
+                    });
+            }
+        });
+        app.controller("StudentController", function ($scope, StudentService) {
+            $scope.getStudent = function (id) {
+                var service = StudentService.getStudent(id,
+                    function (data) {
+                        $scope.Student = JSON.parse(data.data);
+                    });
+            }
+        });
+    </script>
+
 }
-
-</table>

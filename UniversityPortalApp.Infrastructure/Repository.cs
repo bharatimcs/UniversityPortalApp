@@ -71,7 +71,8 @@ namespace UniversityPortalApp.Infrastructure
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                return entity;
+                throw e;
+                
             }
         }
     }

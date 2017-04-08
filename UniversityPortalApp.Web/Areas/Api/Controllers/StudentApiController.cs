@@ -22,44 +22,80 @@ namespace UniversityPortalApp.Web.Areas.Api.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetStudents()
         {
-            var result = this.StudentRepository.GetAll;
-            var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-            return Ok(jsonResult);
+            try
+            {
+                var result = this.StudentRepository.GetAll;
+                var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                return Ok(jsonResult);
+            }
+            catch (System.Exception e)
+            {
+                return InternalServerError(e);
+            }
+
         }
 
         [Route("Students/api/GetStudent/{id}")]
         [HttpGet]
         public async Task<IHttpActionResult> GetStudentById(int id)
         {
-            var result = this.StudentRepository.GetById(id);
-            var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-            return Ok(jsonResult);
+            try
+            {
+                var result = this.StudentRepository.GetById(id);
+                var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                return Ok(jsonResult);
+            }
+            catch (System.Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
         [Route("Students/api/Add")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateStudent(Student student)
         {
-            var result = this.StudentRepository.InsertOrEdit(student);
-            var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-            return Ok(jsonResult);
+            try
+            {
+                var result = this.StudentRepository.InsertOrEdit(student);
+                var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                return Ok(jsonResult);
+            }
+            catch (System.Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
 
         [Route("Students/api/Update")]
         [HttpPut]
         public async Task<IHttpActionResult> UpdateStudent(Student student)
         {
-            var result = this.StudentRepository.InsertOrEdit(student);
-            var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-            return Ok(jsonResult);
+            try
+            {
+                var result = this.StudentRepository.InsertOrEdit(student);
+                var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(result, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                return Ok(jsonResult);
+            }
+            catch (System.Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
 
         [Route("Students/api/Delete/{id}")]
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteStudent(int id)
         {
-            this.StudentRepository.Delete(id);
-            var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject("Successfully deleted", new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-            return Ok(jsonResult);
+            try
+            {
+                this.StudentRepository.Delete(id);
+                var jsonResult = await Task.Factory.StartNew(() => JsonConvert.SerializeObject("Successfully deleted", new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                return Ok(jsonResult);
+            }
+            catch (System.Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
     }
 }
